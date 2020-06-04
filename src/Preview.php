@@ -5,7 +5,7 @@ namespace Preview;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
-class Preview 
+class Preview
 {
     protected $name;
 
@@ -43,7 +43,7 @@ class Preview
         if (is_null($existingChildren)) {
             $updatedChildren = [ $child ];
         } elseif (is_string($existingChildren)) {
-            $updatedChildren .= $child;
+            $updatedChildren = $existingChildren + $child;
         } elseif ($existingChildren instanceof Closure) {
             $updatedChildren = [$existingChildren, $child];
         } elseif (is_array($existingChildren)) {
@@ -78,10 +78,7 @@ class Preview
 
     private static function render($component, $props)
     {
-        if (is_string($component)) {
-            $component = app()->getAlias($component);
-            return \Pre\Phpx\Html\render($component, $props);
-        }
+        return \Pre\Phpx\Html\render($component, $props);
     }
 
     /**

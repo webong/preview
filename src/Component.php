@@ -15,10 +15,22 @@ abstract class Component
         $this->props = (array) $props;
     }
 
-    abstract public function render();
+    abstract protected function render();
+
+    public function resolveView()
+    {
+        return $this->render();
+    }
+
+    public function __call($method, $arguments)
+    {
+        if(method_exists($this, $method) && $method == 'render') {
+            return $this->resolveView();
+        }
+    }
 
     public function __toString()
     {
-        return (string) $this->render();
+        return (string) $this->resolveView();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Preview\Preview\Exceptions;
+namespace Preview\Exceptions;
 
 class ComponentNotFoundException extends \Exception
 {
